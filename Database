@@ -1,0 +1,50 @@
+######################
+Database structure:
+######################
+
++---------------------------+
+| Tables_in_shoes_inventory |
++---------------------------+
+| Brands                    |
+| Models                    |
+| Shoes                     |
++---------------------------+
+
+########################################################################
+
+### Brands ###
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(255) | NO   | UNI | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+
+### Models ###
++----------+--------------+------+-----+---------+----------------+
+| Field    | Type         | Null | Key | Default | Extra          |
++----------+--------------+------+-----+---------+----------------+
+| id       | int          | NO   | PRI | NULL    | auto_increment |
+| brand_id | int          | NO   | MUL | NULL    |                |
+| name     | varchar(255) | NO   |     | NULL    |                |
+| height   | varchar(50)  | YES  |     | NULL    |                |
++----------+--------------+------+-----+---------+----------------+
+
+### Shoes ###
++----------------+--------------+------+-----+---------+----------------+
+| Field          | Type         | Null | Key | Default | Extra          |
++----------------+--------------+------+-----+---------+----------------+
+| id             | int          | NO   | PRI | NULL    | auto_increment |
+| brand_id       | int          | NO   | MUL | NULL    |                |
+| model_id       | int          | NO   | MUL | NULL    |                |
+| edition        | varchar(255) | NO   |     | NULL    |                |
+| shoe_condition | varchar(50)  | YES  |     | NULL    |                |
+| color          | varchar(50)  | YES  |     | NULL    |                |
+| size           | float        | YES  |     | NULL    |                |
+| box            | varchar(50)  | YES  |     | NULL    |                |
+| picture_url    | text         | YES  |     | NULL    |                |
+| release_year   | int          | YES  |     | NULL    |                |
+| comments       | text         | YES  |     | NULL    |                |
+| link_stockx    | text         | YES  |     | NULL    |                |
+| link_goat      | text         | YES  |     | NULL    |                |
++----------------+--------------+------+-----+---------+----------------+
