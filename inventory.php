@@ -1,4 +1,3 @@
-cat inventory.php
 <?php
 // inventory.php
 
@@ -6,11 +5,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// database connection script
 include 'db_connection.php';
 
-// SQL query to fetch all shoes with their associated Brand and Model
 $sql = "SELECT
+            s.id AS ShoeID,
             b.name AS Brand,
             m.name AS Model,
             m.height AS Height,
@@ -19,6 +17,7 @@ $sql = "SELECT
             s.color AS Color,
             s.size AS Size,
             s.box AS Box,
+            s.picture_url AS PictureURL,
             s.release_year AS ReleaseYear,
             s.comments AS Comments,
             s.link_stockx AS StockXLink,
@@ -36,21 +35,19 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <title>Shoes Inventory</title>
-    <!-- Link to external CSS -->
     <link rel="stylesheet" href="styles.css">
-    <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css"/>
 </head>
 <body>
     <div class="container">
-        <h1>Shoes Inventory</h1>
+	<div class="title-container">Shoes Inventory</div>
 
-        <!-- Shoes Table -->
         <?php
         if ($result->num_rows > 0) {
             echo "<table id='shoesTable' class='display'>";
             echo "<thead>
                     <tr>
+                        <th>Picture</th>
                         <th>Brand</th>
                         <th>Model</th>
                         <th>Height</th>
@@ -67,9 +64,9 @@ $result = $conn->query($sql);
                   </thead>";
             echo "<tbody>";
 
-            // Fetch and display each row of data
             while ($row = $result->fetch_assoc()) {
-                echo "<tr>";
+                echo "<tr class='shoe-row' data-shoeid='".htmlspecialchars($row["ShoeID"])."'>";
+                echo "<td><img src='".htmlspecialchars($row["PictureURL"] ?? 'placeholder.jpg')."' alt='Shoe Image' class='shoe-thumbnail' data-fullsize='".htmlspecialchars($row["PictureURL"])."'></td>";
                 echo "<td>" . htmlspecialchars($row["Brand"]) . "</td>";
                 echo "<td>" . htmlspecialchars($row["Model"]) . "</td>";
                 echo "<td>" . htmlspecialchars($row["Height"]) . "</td>";
@@ -80,24 +77,53 @@ $result = $conn->query($sql);
                 echo "<td>" . htmlspecialchars($row["Box"]) . "</td>";
                 echo "<td>" . htmlspecialchars($row["ReleaseYear"]) . "</td>";
                 echo "<td>" . htmlspecialchars($row["Comments"] ?? 'N/A') . "</td>";
-                echo "<td><a href='" . htmlspecialchars($row["StockXLink"]) . "' target='_blank'>StockX</a></td>";
-                echo "<td>" . ($row["GoatLink"] ? "<a href='" . htmlspecialchars($row["GoatLink"]) . "' target='_blank'>GOAT</a>" : 'N/A') . "</td>";
+
+                // StockX Button
+                echo "<td>";
+                if (!empty($row["StockXLink"])) {
+                    echo "<a href='" . htmlspecialchars($row["StockXLink"]) . "' target='_blank' class='stockx-button'>StockX</a>";
+                } else {
+                    echo "N/A";
+                }
+                echo "</td>";
+
+                // GOAT Button
+                echo "<td>";
+                if (!empty($row["GoatLink"])) {
+                    echo "<a href='" . htmlspecialchars($row["GoatLink"]) . "' target='_blank' class='goat-button'>GOAT</a>";
+                } else {
+                    echo "N/A";
+                }
+                echo "</td>";
+
                 echo "</tr>";
             }
             echo "</tbody></table>";
         } else {
             echo "<p>No shoes found in the inventory.</p>";
         }
-
-        // Close the database connection
         $conn->close();
         ?>
     </div>
-    <!-- jQuery (required for DataTables) -->
+
+    <!-- Shoe Details Modal -->
+    <div id="shoeModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="shoeDetails"></div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id="imageModal">
+        <div class="image-modal-content">
+            <span class="close">&times;</span>
+            <img src="" alt="Full-size shoe image">
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <!-- DataTables JS -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <!-- Link to external JavaScript -->
     <script src="scripts.js"></script>
 </body>
 </html>
