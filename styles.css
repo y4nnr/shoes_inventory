@@ -1,6 +1,4 @@
-/* styles.css */
-
-/* General container styling */
+/* General styling */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -26,41 +24,176 @@ table.display th {
     color: white;
     text-align: left;
     padding: 12px;
-    font-weight: bold;
 }
 
-table.display td {
-    border: 1px solid #ddd;
-    padding: 10px;
+.shoe-thumbnail {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
 }
 
-table.display tr:nth-child(even) {
-    background-color: #f4f6f8;
+/* MODAL BOX STYLING */
+#shoeModal, #imageModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-table.display tr:hover {
-    background-color: #eaecee;
-}
-
-/* Heading styling */
-h1 {
+/* Shoe description modal */
+#shoeModal .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 50%;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 2rem;
+}
+
+/* Title inside modal */
+#shoeDetails h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* Shoe image inside modal */
+#shoeDetails img {
+    width: 280px;
+    height: auto;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+/* Shoe specs inside modal */
+.shoe-spec {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.shoe-spec span {
+    font-weight: bold;
     color: #2c3e50;
 }
 
-/* Add some padding for table responsiveness */
-@media screen and (max-width: 768px) {
-    .container {
-        padding: 10px;
-    }
+/* Button links inside modal */
+.shoe-links {
+    text-align: center;
+    margin-top: 15px;
+}
 
-    table.display {
-        font-size: 14px;
-    }
+.shoe-links a {
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin: 5px;
+    display: inline-block;
+}
 
-    h1 {
-        font-size: 1.5rem;
-    }
+.shoe-links a:hover {
+    background: #0056b3;
+}
+
+/* Image modal */
+#imageModal .image-modal-content {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#imageModal img {
+    width: auto;
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 10px;
+}
+
+/* Close button */
+.close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    font-weight: bold;
+}
+
+.close:hover {
+    color: red;
+}
+/*button*/
+/* StockX Button in Main Table */
+.stockx-button {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #28a745; /* Green color like StockX */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.3s ease-in-out;
+}
+
+.stockx-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+/* GOAT Button in Main Table */
+.goat-button {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #000; /* Black color like GOAT */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background 0.3s ease-in-out;
+}
+
+.goat-button:hover {
+    background-color: #333; /* Darker black on hover */
+}
+
+/* spacing*/
+.dataTables_length, .dataTables_filter {
+    margin-bottom: 20px; /* Space between controls and table */
+}
+/* title*/
+/* Styled Title */
+.title-container {
+    background-color: #2c3e50; /* Dark Blue */
+    color: white;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 2px solid #2c3e50;
+    width: auto; /* Auto size */
+    /*max-width: fit-content; /* Makes it match table width */
+    display: block;
+    margin: 20px auto; /* Centers it */
 }
