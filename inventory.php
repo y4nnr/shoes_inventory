@@ -40,7 +40,7 @@ $result = $conn->query($sql);
 </head>
 <body>
     <div class="container">
-	<div class="title-container">Shoes Inventory</div>
+        <div class="title-container">Shoes Inventory</div>
 
         <?php
         if ($result->num_rows > 0) {
@@ -107,7 +107,7 @@ $result = $conn->query($sql);
     </div>
 
     <!-- Shoe Details Modal -->
-    <div id="shoeModal">
+    <div id="shoeModal" style="display: none;">
         <div class="modal-content">
             <span class="close">&times;</span>
             <div id="shoeDetails"></div>
@@ -115,10 +115,10 @@ $result = $conn->query($sql);
     </div>
 
     <!-- Image Modal -->
-    <div id="imageModal">
+    <div id="imageModal" style="display: none;">
         <div class="image-modal-content">
             <span class="close">&times;</span>
-            <img src="" alt="Full-size shoe image">
+            <img src="" alt="">
         </div>
     </div>
 
